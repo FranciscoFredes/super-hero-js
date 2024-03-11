@@ -5,7 +5,6 @@ const urlApi = "https://superheroapi.com/api.php/";
 // Defino el access token para usarlo en la URL
 const accessToken = 10230258684227482;
 
-
 // Funcion para validar que el caracter ingresado sea un numero.
 function validarNumero(){
 // Defino numeroHeroe para almacenar el valor ingresado por el usuario 
@@ -36,7 +35,6 @@ function obtenerHeroes(numeroHeroe){
                         var heroRelatives = datosHeroe.connections.relatives;
                         var heroAlliance = datosHeroe.connections["group-affiliation"];
                         var heroFirstAppearance = datosHeroe.biography["first-appearance"];
-                        console.log(datosHeroe);
                         var dataPoints = [];  
                         // Inyectando datos en la card                                        
                         $("#hero-name").text(heroName); 
@@ -48,12 +46,14 @@ function obtenerHeroes(numeroHeroe){
                         $("#hero-contacts").text(heroRelatives);
                         $("#hero-alliance").text(heroAlliance);
                         $("#hero-first-appearance").text(heroFirstAppearance);
+                        // ocultando imagen al encontrar los datos 
+                        $("#hero-wallpaper").hide();
                         // funcion para inyectar los datos en canvas Js 
                         for (var key in powerstats) {
                         if (powerstats.hasOwnProperty(key)) {
                         dataPoints.push({label :key, y: parseInt(powerstats[key])}); 
                             }         
-                        }                                                                                  
+                        }                                                                                                       
                     
                     chart.options.data[0].dataPoints = dataPoints;
                     chart.render(); 
@@ -62,7 +62,7 @@ function obtenerHeroes(numeroHeroe){
                         console.log(error);                       
                     },
                 })
-            }         
+            }        
 
             var chart = new CanvasJS.Chart("chartContainer", {
                 theme: "dark1",
@@ -82,7 +82,7 @@ function obtenerHeroes(numeroHeroe){
                     dataPoints: [] 
                 }]
             });
-
+            
 //  Evento que llama a la funcion validarNumero al hacer click 
 $(document).ready(function() {     
     $("button").click(function(){
